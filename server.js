@@ -1,25 +1,22 @@
+require("dotenv").config();
+
 const AWS = require("aws-sdk");
-let express = require("express");
 let multer = require("multer");
 let multerS3 = require("multer-s3");
-// const fs = require("fs-extra");
+let express = require("express");
+// const fs = require("fs-extra");git p
 
 let app = express();
 
-const ID = "AKIA2DSJ5A23DMUPGVSQ";
-const SECRET = "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";
-const BUCKET_NAME = "imagedash";
-const PORT = 3000;
-
 const s3 = new AWS.S3({
-  accessKeyId: ID,
-  secretAccessKey: SECRET
+  accessKeyId: process.env.ID,
+  secretAccessKey: process.env.SECRET
 });
 
 const params = {
-  Bucket: BUCKET_NAME,
+  Bucket: process.env.BUCKET_NAME,
   CreateBucketConfiguration: {
-    LocationConstraint: "ap-south-1"
+    LocationConstraint: process.env.REGION
   }
 };
 
@@ -46,7 +43,7 @@ let upload = multer({
     key: function (req, file, cb) {
       cb(
         null,
-        file.originalname + "-" + (Math.random() + 1).toString(36).substring(7)
+        file.originalname + "-" + (Math.random() + 1).toString(36).substring(2)
       );
     }
   })
@@ -62,9 +59,9 @@ app.post("/api/upload", upload.array("file", 1), (req, res, next) => {
   console.log(res);
 });
 
-app.listen(PORT, function (err) {
+app.listen(process.env.PORT, function (err) {
   if (err) console.log(err);
-  console.log("Server Listening on PORT:", PORT);
+  console.log("Server Listening on PORT:", process.env.PORT);
 });
 // console.log(upload);
 // s3.upload();
