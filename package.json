@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +18,9 @@
     "express": "^4.17.1",
     "fs-extra": "^10.0.0",
     "multer": "^1.4.4",
-    "multer-s3": "^2.10.0",
+    "multer-s3": "^2.10.0"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.15"
   }
 }
