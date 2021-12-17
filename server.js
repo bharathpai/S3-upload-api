@@ -1,11 +1,13 @@
 require("dotenv").config();
 
+const cors = require("cors");
 const AWS = require("aws-sdk");
 let multer = require("multer");
 let multerS3 = require("multer-s3");
 let express = require("express");
 
 let app = express();
+app.use(cors());
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.ID,
