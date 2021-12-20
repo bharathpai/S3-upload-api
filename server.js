@@ -49,11 +49,20 @@ let upload = multer({
   })
 });
 
-app.post("/api/upload", upload.array("file", 1), (req, res, next) => {
-  res.send("Successfully uploaded the file!");
-  console.log(req.body);
-  console.log(res);
-});
+app.post(
+  "/api/upload",
+  upload.array("file", 1),
+  (req, res, next) => {
+    res.send(req.files[0].location);
+    // return res.json({
+    //   message: "Image uploaded successfully",
+    //   uploadLocation: req.files[0].location
+    // });
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
+  }
+);
 
 app.listen(process.env.PORT, function (err) {
   if (err) console.log(err);
